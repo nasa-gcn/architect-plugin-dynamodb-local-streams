@@ -1,0 +1,1 @@
+# architect-plugin-dynamodb-local-streams
