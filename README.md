@@ -17,7 +17,7 @@ When using Architect's sandbox mode, the plugin will consistently poll the local
 npm i @nasa-gcn/architect-plugin-dynamodb-local-streams
 ```
 
-1. Add the following to your project's `app.arc` configuration file:
+2. Add the following to your project's `app.arc` configuration file:
 
 ```
 @plugins
