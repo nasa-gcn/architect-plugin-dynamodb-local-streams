@@ -1,0 +1,40 @@
+{
+  "name": "@nasa-gcn/architect-plugin-dynamodb-local-streams",
+  "description": "Architect plugin for Local DynamoDB Streams",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "github:nasa-gcn/architect-plugin-dynamodb-local-streams"
+  },
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "esbuild index.ts --bundle --packages=external --outfile=index.js --platform=node --format=esm --tree-shaking=true"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [],
+  "contributors": [
+    {
+      "name": "Dakota Dutko",
+      "email": "dakota.c.dutko@nasa.gov"
+    }
+  ],
+  "type": "module",
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@architect/functions": "^5.3.4",
+    "@aws-sdk/client-dynamodb": "^3.750.0",
+    "@aws-sdk/client-dynamodb-streams": "^3.750.0",
+    "@aws-sdk/client-ssm": "^3.750.0",
+    "@aws-sdk/lib-dynamodb": "^3.750.0",
+    "@types/node": "^22.13.4"
+  }
+}
