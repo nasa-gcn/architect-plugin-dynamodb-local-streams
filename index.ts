@@ -25,6 +25,12 @@ const shardMap: { [key: string]: ShardItem[] } = {};
 export const sandbox = {
   // @ts-expect-error: The Architect plugins API has no type definitions.
   async start({ inventory: { inv }, invoke }) {
+    if (!process.env.ARC_DB_EXTERNAL) {
+      console.log(
+        'ARC_DB_EXTERNAL is not set. To use the local dynamodb table streams, set ARC_DB_EXTERNAL to `true` and defined a port with ARC_TABLES_PORT in your .env file.'
+      );
+      return;
+    }
     const tableStreams = inv['tables-streams'];
     const dynamodbClient = new DynamoDBClient({
       region: inv.aws.region,
