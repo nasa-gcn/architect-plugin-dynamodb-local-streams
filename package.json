@@ -1,7 +1,7 @@
 {
   "name": "@nasa-gcn/architect-plugin-dynamodb-local-streams",
   "description": "Architect plugin for Local DynamoDB Streams",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "github:nasa-gcn/architect-plugin-dynamodb-local-streams"

@@ -22,10 +22,31 @@ type ShardItem = {
 
 const shardMap: { [key: string]: ShardItem[] } = {};
 
+export const credentials = {
+  // Any credentials can be provided for local
+  accessKeyId: 'localDb',
+  secretAccessKey: 'randomAnyString',
+};
+
+// @ts-expect-error: The Architect plugins API has no type definitions.
+function isEnabled(inv) {
+  return Boolean(
+    inv._project.preferences?.sandbox?.['external-db'] ||
+      process.env.ARC_DB_EXTERNAL
+  );
+}
+
+// @ts-expect-error: The Architect plugins API has no type definitions.
+function getPort(inv) {
+  return (
+    inv._project.preferences?.sandbox?.ports?.tables ||
+    Number(process.env.ARC_TABLES_PORT)
+  );
+}
 export const sandbox = {
   // @ts-expect-error: The Architect plugins API has no type definitions.
   async start({ inventory: { inv }, invoke }) {
-    if (!process.env.ARC_DB_EXTERNAL) {
+    if (!isEnabled(inv)) {
       console.log(
         'ARC_DB_EXTERNAL is not set. To use the local dynamodb table streams, set ARC_DB_EXTERNAL to `true` and defined a port with ARC_TABLES_PORT in your .env file.'
       );
@@ -34,11 +55,13 @@ export const sandbox = {
     const tableStreams = inv['tables-streams'];
     const dynamodbClient = new DynamoDBClient({
       region: inv.aws.region,
-      endpoint: `http://localhost:${process.env.ARC_TABLES_PORT}`,
+      endpoint: `http://localhost:${getPort(inv)}`,
+      credentials,
     });
     const ddbStreamsClient = new DynamoDBStreamsClient({
       region: inv.aws.region,
-      endpoint: `http://localhost:${process.env.ARC_TABLES_PORT}`,
+      endpoint: `http://localhost:${getPort(inv)}`,
+      credentials,
     });
 
     for (const arcStream of tableStreams) {
